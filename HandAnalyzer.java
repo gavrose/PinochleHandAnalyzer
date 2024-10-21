@@ -57,8 +57,7 @@ public class HandAnalyzer{
     }
     public void handAnalysis(List<Card> hand){
         for (Card card:hand){  //for each card in the hand
-            cardFrequencyMap.put(card, cardFrequencyMap.getOrDefault(card,0)+1); // add 1 to the frequency map for the card. this will default to 0
-            cardsPerSuitMap.put(card.getSuit(), cardsPerSuitMap.getOrDefault(card.getSuit(),0)+1); //
+            cardsPerSuitMap.put(card.getSuit(), cardsPerSuitMap.getOrDefault(card.getSuit(),0)+1); // add to the hash map <suit,Frequency + 1>
         }
     }
 
@@ -69,17 +68,16 @@ public class HandAnalyzer{
         if (!cardsPerSuitMap.containsKey("D") || !cardsPerSuitMap.containsKey("S")){ // if there are no diamonds or no spades return 0
             setPinochles(0);
         }
-
         for (Card card:hand){
-            if (card.getRank().equalsIgnoreCase("J") && card.getSuit().equalsIgnoreCase("D")){
+            if (card.getRank().equalsIgnoreCase("J") && card.getSuit().equalsIgnoreCase("D")){ // if card is jack of diamonds --> increment jack of diamonds
                 jackDiamondsCount++;
             }
-            if (card.getRank().equalsIgnoreCase("Q") && card.getSuit().equalsIgnoreCase("S")){
+            if (card.getRank().equalsIgnoreCase("Q") && card.getSuit().equalsIgnoreCase("S")){ // if card is queen of spades --> increment queen of spades
                 queenSpadesCount++;
             }
         }
-        int p = Math.min(jackDiamondsCount,queenSpadesCount);
-        setPinochles(p);
+        int p = Math.min(jackDiamondsCount,queenSpadesCount); //find min of jacks of diamonds and queen fo spades
+        setPinochles(p); // set pinochles to spades
     }
 
     public void checkRounds(List<Card> hand){
@@ -90,13 +88,13 @@ public class HandAnalyzer{
             setRoundOfJacks(0);
         } else {
             //Hashmap<Rank,Hashmap<Suit, Frequency>>
-            HashMap<String,HashMap<String, Integer>> ranks = new HashMap<>();
+            HashMap<String,HashMap<String, Integer>> ranks = new HashMap<>();  // hashmap = <suit, <ranks, frequency>>
             // creates hashmap for each different rank we are checking (A, K, Q, J) to define the inner hashmap
             for (Card card:hand){
-                if (card.getRank().equalsIgnoreCase("A")){
-                    HashMap<String,Integer> suits = ranks.getOrDefault("A",new HashMap<>());
-                    suits.put(card.getSuit(), suits.getOrDefault(card.getSuit(),0)+1);
-                    ranks.put("A",suits);
+                if (card.getRank().equalsIgnoreCase("A")){  // if the card is an Ace
+                    HashMap<String,Integer> suits = ranks.getOrDefault("A",new HashMap<>()); // create new hashmap to store each suit and the frequency -- this hashmap will be the inner hashmap for each rank
+                    suits.put(card.getSuit(), suits.getOrDefault(card.getSuit(),0)+1); // add <suit, frequency + 1>
+                    ranks.put("A",suits); // add to hashmap <rank<suit,frequency>>
                 }
                 if (card.getRank().equalsIgnoreCase("K")){
                     HashMap<String,Integer> suits = ranks.getOrDefault("K",new HashMap<>());
@@ -142,8 +140,8 @@ public class HandAnalyzer{
         }
     }
 
-    public void checkRuns(List<Card> hand) {
-        ArrayList<String> suitsToCheck = new ArrayList<>();
+    public void checkRuns(List<Card> hand) { // if the a suit has (A,10,K,Q,J)
+        ArrayList<String> suitsToCheck = new ArrayList<>(); // create empty array list 
         for (String suit : cardsPerSuitMap.keySet()) {
             if (cardsPerSuitMap.get(suit) >= 5) { // if the suit has more than 5 cards in it add it to the suits we need to check for a run
                 suitsToCheck.add(suit);
@@ -155,22 +153,22 @@ public class HandAnalyzer{
                 if (!card.getSuit().equals(suit) || card.getRank().equals("9")){  // if the suit isn't one of the ones we need to check or is a 9--> continue to next card
                     continue;
                 } else { // if it isnt a 9 and is in one of the suits we need to check --> add it to the partsOfRun frequency hashmap
-                    partsOfRun.put(card.getRank().toUpperCase(), partsOfRun.getOrDefault(card.getRank().toUpperCase(),0)+1);
+                    partsOfRun.put(card.getRank().toUpperCase(), partsOfRun.getOrDefault(card.getRank().toUpperCase(),0)+1);  // add to hashmap <rank, 0 or value for that rank + 1>
                 }
             }
             if (partsOfRun.containsKey("A") && partsOfRun.containsKey("10") && partsOfRun.containsKey("K") && partsOfRun.containsKey("Q") && partsOfRun.containsKey("J")){ //if the suit has all 5 components
                 int min = 100; //arbitrary high value to use for comparison
-                for (Integer runRankFrequency:partsOfRun.values()){ //finds the minimum frequency of the cards in the suit
+                for (Integer runRankFrequency:partsOfRun.values()){ //finds the minimum frequency of the cards in the suit --> this determines how many complete runs there are
                     if (runRankFrequency<min){
                         min = runRankFrequency;
                     }
                 }
-                suitsWithRun.put(suit,min);
+                suitsWithRun.put(suit,min); // add the suit and how many runs there are
             }
         }
     }
 
-    public void checkMarriages(List<Card> hand){
+    public void checkMarriages(List<Card> hand){ //if a suit has (K,Q)
         ArrayList<String> suitsToCheck = new ArrayList<>();
         for (String suit: cardsPerSuitMap.keySet()){ //for each suit we have cards in
             if (cardsPerSuitMap.get(suit) >= 2) { // if the suit has more than 2 cards in it, add it to the suits we need to check for a run
@@ -183,40 +181,41 @@ public class HandAnalyzer{
                 if (!card.getSuit().equals(suit)) { // if card not in the suit we are looking for
                     continue;
                 } else { // if the card is in the suit we are looking for
-                    if (card.getRank().equalsIgnoreCase("K") || card.getRank().equalsIgnoreCase("Q")) {
-                        partsOfMarriage.put(card.getRank().toUpperCase(), partsOfMarriage.getOrDefault(card.getRank().toUpperCase(), 0) + 1);
+                    if (card.getRank().equalsIgnoreCase("K") || card.getRank().equalsIgnoreCase("Q")) { // if the card is a king or queen
+                        partsOfMarriage.put(card.getRank().toUpperCase(), partsOfMarriage.getOrDefault(card.getRank().toUpperCase(), 0) + 1); // add to hashmap <rank, 0 or value for that rank + 1>
                     }
                 }
             }
-            if (partsOfMarriage.containsKey("K") && partsOfMarriage.containsKey("Q")) {
+            if (partsOfMarriage.containsKey("K") && partsOfMarriage.containsKey("Q")) { // if all parts of the marriage are present
                 int min = 100; //arbitrary high value for comparison
-                for (Integer marriageRankFrequency : partsOfMarriage.values()) {
-                    if (marriageRankFrequency < min) {
+                for (Integer marriageRankFrequency : partsOfMarriage.values()) {  // for each freqeuncy if the values in the marriage ranks
+                    if (marriageRankFrequency < min){
                         min = marriageRankFrequency;
-                    }
+                    }  
                 }
-                suitsWithMarriage.put(suit,min);
             }
+            suitsWithMarriage.put(suit,min);  // add the suit and number of marriages to hashmap
         }
     }
+    
 
 
 
     public String toString() {
         String str = "";
-        if (getPinochles() > 0) {
+        if (getPinochles() > 0) { //only show if there are 1 or more
             str += "\nPinochle(s): " + getPinochles();
         }
-        if (getRoundOfAces() > 0) {
+        if (getRoundOfAces() > 0) { //only show if there are 1 or more
             str += "\nRound(s) of Aces: " + getRoundOfAces();
         }
-        if (getRoundOfKings() > 0) {
+        if (getRoundOfKings() > 0) { //only show if there are 1 or more
             str += "\nRound(s) of Kings: " + getRoundOfKings();
         }
-        if (getRoundOfQueens() > 0) {
+        if (getRoundOfQueens() > 0) { //only show if there are 1 or more
             str += "\nRound(s) of Queens: " + getRoundOfQueens();
         }
-        if (getRoundOfJacks() > 0) {
+        if (getRoundOfJacks() > 0) { //only show if there are 1 or more
             str += "\nRound(s) of Jacks: " + getRoundOfJacks();
         }
         if (!suitsWithRun.isEmpty()) { //if suitsWithRun is not empty
@@ -260,7 +259,7 @@ public class HandAnalyzer{
                 str += "\n"+"Marriage(s) in " + suitName +": "+ suitsWithMarriage.get(suit);
             }
         }
-        if (str.equals("")){
+        if (str.equals("")){ //if there is no meld
             str += "Nothing.";
         }
         return str;
