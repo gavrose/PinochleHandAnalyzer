@@ -193,8 +193,9 @@ public class HandAnalyzer{
                         min = marriageRankFrequency;
                     }  
                 }
+                suitsWithMarriage.put(suit,min);  // add the suit and number of marriages to hashmap
             }
-            suitsWithMarriage.put(suit,min);  // add the suit and number of marriages to hashmap
+
         }
     }
     
