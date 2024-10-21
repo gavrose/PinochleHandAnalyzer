@@ -3,6 +3,8 @@
 
 # I created this project because I frequently play pinochle with my family, and sometimes people struggle to analyze their hand quickly and efficiently. This program will assist in analyzing the hand by finding all possible meld combinations.
 
+# This project heavily uses HashMaps. We briefly touched on HashMaps in class, but I wanted to understand them better and how to use them. This project boosted that understanding and has practical applications.
+
 # NOTICE - This program simply finds all possible meld combinations. It does not take into account trump, point values, or special rules that would negate certain meld values (ex. a marriage within a run would not count in scoring but both will be displayed in this program)
 
 # This program allows the user to enter pinochle cards (A, K, Q, J, 10, 9) to form a hand. It will then analyze the given hand based on 7 criteria:
