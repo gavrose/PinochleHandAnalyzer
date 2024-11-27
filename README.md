@@ -27,12 +27,16 @@ Example 3 - 2 rounds of aces = 2 aces in all 4 suits
  Once all possible meld combinations have been found, the user will be asked what suit trump is. This input can alter their meld due to the complex relationship between runs and marriages.
  When a user scores a run that means they have A 10 K Q J. However, the run can only be scored if it is in the same suit as trump. If the run is scored, the marriage contained within it (A 10 
    **K Q** J) is not scored. However, if the run is not in trump and is not scored, the marriage will be scored.
+   
  Example 1 - A 10 K K Q Q J in spades. If trump is spades, the user will score a run and a marriage. If trump is not spades, the user will score 2 marriages.
+ 
  Example 2 - A 10 K Q J in diamonds. If trump is diamonds, the user will score a run. If trump is not diamonds, the user will score a marriage.
+ 
  Example 3 - A A 10 10 K K K Q Q Q J J in hearts. If trump is hearts, the user will score a double run and a marriage. If trump is not hearts, the user will score 3 marriages.
 
 # How to compile and run
 **Terminal** - Navigate to the folder where the project is stored using terminal cd commands. Enter "javac Main.java" java into the terminal. Enter "java Main" into the terminal.
+
 **IDE** - Open the 'Main.java' file in your desired IDE and run the file.
 
 # How to use 
@@ -48,6 +52,6 @@ Example 3 - 2 rounds of aces = 2 aces in all 4 suits
  **Undo** - If users input a card incorrectly, they can enter 'undo' and it will remove the last card that was entered. This can be repeated until the list is empty if desired.  
  **Clear** - If users want to remove all of the cards they have previously inputted, they can enter 'clear' when entering a card and the current hand will become empty.
 
- # Edits
- - added trump and run/marriage rule calculations
- - added t and n to input 10 and 9 to improve UI
+ # Edits 
+ - 11/26 - added trump and run/marriage rule calculations
+ - 11/27 - added t and n to input 10 and 9 to improve UI
