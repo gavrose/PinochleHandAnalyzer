@@ -244,22 +244,6 @@ public class HandAnalyzer{
         if (!suitsWithRun.isEmpty()) { //if suitsWithRun is not empty
             for (String suit : suitsWithRun.keySet()) { //for each suit that has a run
                 String fullSuit = switchToFull(suit);
-                //String suitName = ""; // Variable to hold the full name of the suit
-//                switch (suit.toUpperCase()) {
-//                    case "H":
-//                        suitName = "Hearts";
-//                        break; // Break to prevent fall-through
-//                    case "D":
-//                        suitName = "Diamonds";
-//                        break; // Break to prevent fall-through
-//                    case "C":
-//                        suitName = "Clubs";
-//                        break; // Break to prevent fall-through
-//                    case "S":
-//                        suitName = "Spades";
-//                        break; // Break to prevent fall-through
-//                }
-
                 if (this.getTrump() != null){ // if trump has been entered
                     if (switchToFull(this.getTrump()).equals(fullSuit)){ //if the suit is in trump add it to the toString - if it is not in trmp it wontbe added
                         str += "\n" + "Run(s) in " + fullSuit + ": " + suitsWithRun.get(suit);
@@ -273,24 +257,6 @@ public class HandAnalyzer{
         if (!suitsWithMarriage.isEmpty()) {
             for (String suit : suitsWithMarriage.keySet()) { //for each suit that has a marriage
                 String fullSuit = switchToFull(suit);
-
-//                String suitName = ""; // Variable to hold the full name of the suit
-//                switch (suit.toUpperCase()) {
-//                    case "H":
-//                        suitName = "Hearts";
-//                        break; // Break to prevent fall-through
-//                    case "D":
-//                        suitName = "Diamonds";
-//                        break; // Break to prevent fall-through
-//                    case "C":
-//                        suitName = "Clubs";
-//                        break; // Break to prevent fall-through
-//                    case "S":
-//                        suitName = "Spades";
-//                        break; // Break to prevent fall-through
-//                }
-
-
                 if (this.getTrump() != null) { // if trump has been entered
                     if (suitsWithRun.containsKey(suit) && switchToFull(this.getTrump()).equals(fullSuit)) { //if the suit has a run that is in trump
                         if (suitsWithRun.get(suit) > 0 && suitsWithMarriage.get(suit) > 0) {
