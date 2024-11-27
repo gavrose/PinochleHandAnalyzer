@@ -21,7 +21,15 @@
 # Hands can have multiple of one thing, however, it must satisfy the base condition again in order to count.
 Example 1 - 3 jacks of diamonds and 2 queens of spaids = 2 pinochles                                                                              
 Example 2 - 3 kings of hearts and 1 queens of hearts = 1 marriage in hearts                                                                        
-Example 3 - 2 rounds of aces = 2 aces in all 4 suits                                                                                               
+Example 3 - 2 rounds of aces = 2 aces in all 4 suits                        
+
+ # Trump information
+   Once all possible meld combinations have been found, the user will be asked what suit trump is. This input can alter their meld due to the complex relationship between runs and marriages.
+   - When a user scores a run that means they have A 10 K Q J. However, the run can only be scored if it is in the same suit as trump. If the run is scored, the marriage contained within it (A 10 
+   **K Q** J) is not scored. However, if the run is not in trump and is not scored, the marriage will be scored.
+     Example 1 - A 10 K K Q Q J in spades. If trump is spades, the user will score a run and a marriage. If trump is not spades, the user will score 2 marriages.
+     Example 2 - A 10 K Q J in diamonds. If trump is diamonds, the user will score a run. If trump is not diamonds, the user will score a marriage.
+     Example 3 - A A 10 10 K K K Q Q Q J J in hearts. If trump is hearts, the user will score a double run and a marriage. If trump is not hearts, the user will score 3 marriages.
 
 # How to compile and run
 **Terminal** - Navigate to the folder where the project is stored using terminal cd commands. Enter "javac Main.java" java into the terminal. Enter "java Main" into the terminal.
@@ -35,14 +43,6 @@ Example 3 - 2 rounds of aces = 2 aces in all 4 suits
  Example input 4 - Jack of Diamonds = 'j d'                                                                                                        
  Example input 5 - 10 of Clubs = '10 c' or 't c'                                                                                                           
  Example input 6 - 9 of Spades = '9 s' or 'n s'  
-
- # Trump information
-   Once all possible meld combinations have been found, the user will be asked what suit trump is. This input can alter their meld due to the complex relationship between runs and marriages.
-   - When a user scores a run that mean they have A 10 K Q J. However, the run can only be scored if it is in the same suit as trump. If the run is scored, the marriage contained within it (A 10 
-   **K Q** J) is not scored. However, if the run is not in trump and is not scored, the marriage will be scored.
-     Example 1 - A 10 K K Q Q J in spades. If trump is spades, the user will score a run and a marriage. If trump is not spades, the user will score 2 marriages.
-     Example 2 - A 10 K Q J in diamonds. If trump is diamonds, the user will score a run. If trump is not diamonds, the user will score a marriage.
-     Example 3 - A A 10 10 K K K Q Q Q J J in hearts. If trump is hearts, the user will score a double run and a marriage. If trump is not hearts, the user will score 3 marriages.
 
  # Additional features
  **Undo** - If users input a card incorrectly, they can enter 'undo' and it will remove the last card that was entered. This can be repeated until the list is empty if desired.  
