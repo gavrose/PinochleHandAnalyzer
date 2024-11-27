@@ -52,6 +52,6 @@ Example 3 - 2 rounds of aces = 2 aces in all 4 suits
  **Undo** - If users input a card incorrectly, they can enter 'undo' and it will remove the last card that was entered. This can be repeated until the list is empty if desired.  
  **Clear** - If users want to remove all of the cards they have previously inputted, they can enter 'clear' when entering a card and the current hand will become empty.
 
- # Edits 
- - 11/26 - added trump and run/marriage rule calculations
- - 11/27 - added t and n to input 10 and 9 to improve UI
+ # Updates 
+ - added trump and run/marriage rule calculations
+ - added t and n to input 10 and 9 to improve UI
