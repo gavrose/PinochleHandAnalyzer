@@ -1,3 +1,4 @@
+import java.sql.SQLOutput;
 import java.util.*;
 public class Main {
     public static void main(String args[]){
@@ -37,10 +38,25 @@ public class Main {
 
         Hand hand = new Hand(tempHandSize,tempNinesIn);
         HandAnalyzer analyzer = new HandAnalyzer(hand.getHand());
-        System.out.println("\n---------------------------------------------------\nALL MELD COMBINATIONS:\n");
+        System.out.println("\n---------------------------------------------------\nALL MELD COMBINATIONS -- THIS DOES NOT TAKE TRUMP RULES INTO ACCOUNT:\n");
         System.out.println(analyzer);
         System.out.println("---------------------------------------------------");
+        if (!analyzer.toString().equals("Nothing.")){// if there is meld
+            boolean validInput = false;
+            while (!validInput){
+                System.out.println("What is trump? (Enter C, D, H, or D");
+                String trump = sc.next();
+                if (hand.checkValidSuit(trump)){
+                    validInput = true;
+                    analyzer.setTrump(trump);
+                    System.out.println("\n\n---------------------------------------------------\nMELD TAKING TRUMP INTO ACCOUNT:\n");
+                    System.out.println(analyzer);
+                    System.out.println("---------------------------------------------------");
+                } else {
+                    System.out.println("\nPlease enter the suit of trump (C, D, H, or D).");
+                }
+            }
+        }
 
-        System.out.println("\n\n\nNOTE:\n\tTHIS PROGRAM FINDS ALL POSSIBLE MELD COMBINATIONS.\n\t- IT DOES NOT CALCULATE THE POINTS OF THE GIVEN HAND.\n\t- IT DOES NOT ACCOUNT FOR TRUMP OR RULES THAT WOULD OTHERWISE NEGATE CERTAIN MELD (EX. MARRIAGE WITHIN A RUN).\n\tBE CAREFUL WHEN CALCULATING YOUR SCORE.");
     }
 }
